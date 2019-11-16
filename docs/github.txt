@@ -3,3 +3,10 @@ and this will be a contnueous development project that i will devote my time com
 
 
 github basics
+
+echo "# tobi" >> README.md
+git init
+git add .
+git commit -m "first commit"
+git remote add origin https://github.com/anssshu/tobi.git
+git push -u origin master

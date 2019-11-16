@@ -1,0 +1,21 @@
+all the tools used for this project 
+
+GODOT ----- game engine
+
+VISUAL STUDIO CODE --- text editor
+
+GIMP --with fuselayer plugin for creating sprite sheets
+
+INKSCAPE -- for graphics assets
+
+KRITA  -- for graphics assets
+
+BLENDER  --coa tool for creating animations and rendering
+
+LMMS ---for music and sound file creation
+
+AUDACITY -- for audio assets
+
+
+all these tools are free tool
+the Tobi game is created with all the open source tools 

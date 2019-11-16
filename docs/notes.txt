@@ -2,16 +2,19 @@
 
 #the file structure will be like this
 
-# res-|--levels
-#     |--docs
-#     |--prefabs
+# res-|--assets
+#     |--levels
+#     |--menus
+#     |--objects
 #     |--default_env.tres
 #     |--globals.gd
 #     |--icon.png
+#     |--notes.gd
+#     |--project.godot
 
 #all the levels will be written inside the levels folder
-#all the game objects will be written inside the prefab folders
-
+#all the game objects will be written inside the object folders
+#all menu scenes will be written inside the menus folder
 
 # each level folder will contain 1tscn file and 1 script file for that level 
 # and all the objects from the prefabs will be connected in the tscn file 

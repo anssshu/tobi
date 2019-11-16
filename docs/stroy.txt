@@ -1,0 +1,40 @@
+The Tobi Project
+
+Tobi is a boy it romes around various worlds and at the end of each world there is a boss fight.
+
+WORLD 1 -  VILLAGE
+
+Tobi's toy was taken by the naughty Cat (Momu) . 
+When Tobi wakes up he finds out that his toy is missing.
+He starts in search of his toy and and comes out of his home and moves out .
+On the way he asks the bird which tell him Momu .
+
+
+Tobi walks out of his village and comes near a forest.
+
+
+at the end of the village tobi meets a crow which told him that 
+he saw Momu moving towards the forest.
+
+
+
+WORLD 2 - FOREST
+
+Tobi moves through the forest and comes near the cave
+
+WORLD 3 - CAVE
+TOBI moves through the cave and enters the DARK FOREST
+
+WORLD 4 - DARK FOREST
+Tobi moves through the DARK FOREST and  enters a CASTLE
+
+WORLD 5 - CASTLE
+Tobi moves through the castle and at the end fights with MOMU and gets his toy back
+
+--------------------------------------------------------------------------------------------------
+WORLD 1 
+village
+ enemy characters ------- bee,crawlling insect,ants
+draw the environment and enemy characters and complete the stage
+
+

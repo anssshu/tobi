@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://levels/level1/level1.gd" type="Script" id=1]
 [ext_resource path="res://assets/images/backgroundDesert.png" type="Texture" id=2]
@@ -7,12 +7,8 @@
 [ext_resource path="res://objects/player/player.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/tiles/tiles.tres" type="TileSet" id=6]
 [ext_resource path="res://objects/bird/bluebird.tscn" type="PackedScene" id=7]
-
-
-
-
-
-
+[ext_resource path="res://objects/stone/stone.tscn" type="PackedScene" id=8]
+[ext_resource path="res://objects/implode/implode.tscn" type="PackedScene" id=9]
 
 [node name="level1" type="Node2D"]
 script = ExtResource( 1 )
@@ -32,7 +28,7 @@ amount = 20
 emission_rect_extents = Vector2( 512, 10 )
 
 [node name="player" parent="." instance=ExtResource( 5 )]
-position = Vector2( 521.142, 58.7892 )
+position = Vector2( 318.962, 473.698 )
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 6 )
@@ -41,3 +37,9 @@ tile_data = PoolIntArray( -655367, 0, 0, -655366, 0, 0, -655365, 0, 0, -655364, 
 
 [node name="bluebird" parent="." instance=ExtResource( 7 )]
 position = Vector2( 901.068, 223.309 )
+
+[node name="Node2D" parent="." instance=ExtResource( 8 )]
+position = Vector2( 331.36, 349.443 )
+
+[node name="implode" parent="." instance=ExtResource( 9 )]
+position = Vector2( 484.314, 432.074 )

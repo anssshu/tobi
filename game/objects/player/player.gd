@@ -6,19 +6,18 @@ export var accn = 100
 var jump_speed = 1200
 var top_speed = 800
 var on_ground = false
-
-
-
+var not_dusting = true
+var stone = preload("res://objects/stone/stone.tscn")
+var face = "right"
 var state_machine = {
 	idle = "idle",
 	jump = "jump" ,
 	run = "run",
 	throw = "throw"
 }
-
 var current_state = self.state_machine.idle
 var previous_state =  self.state_machine.jump
-
+var timer 
 var move = {
 	left = Vector2(-1,0),
 	right = Vector2(1,0),
@@ -34,6 +33,7 @@ var n = Vector2(0,-1) #initialise the collision normal
 #-------------------------------------------initialize object----------------------
 func _ready():
 	
+	timer = $Timer
 	# on_begin_contact
 	self.connect("body_entered",self,"on_begin_contact")
 #-------------------------------------------------------------------
@@ -82,15 +82,31 @@ func determine_object_on_ground():
 #------------------------------------------------------------------------------------------------------
 #calculate state transition
 func calculate_state_transition(state):
-	#store the current state
 	var c = current_state
-	
+	#throw stone logic
+	if Input.is_action_just_pressed("ui_accept"):
+		timer.start()
+		get_tree().root.add_child(stone.instance())
+	if Input.is_action_just_released("ui_accept"):
+		timer.stop()
+		
+		
 	#logic for state transition
 	if Input.is_action_pressed("ui_left"):
+		self.face = "left"
 		$sprite.flip_h = true
+		$scarf/sprite.flip_h = true
+		$scarf.rotation = 0
+		$scarf/AnimationPlayer.play("wave")
+		$scarf/sprite.position.x = $sprite.position.x + 120
 	
 	if Input.is_action_pressed("ui_right"):
+		self.face = "right"
 		$sprite.flip_h = false
+		$scarf/sprite.flip_h = false
+		$scarf/AnimationPlayer.play("wave")
+		$scarf.rotation = 0
+		$scarf/sprite.position.x = $sprite.position.x 
 	
 	if self.on_ground == true   and abs(state.linear_velocity.x) > 0.0:
 		self.current_state = self.state_machine.run 
@@ -106,7 +122,10 @@ func calculate_state_transition(state):
 	if c!=current_state:
 		previous_state = c
 		
-		
+	#play the dust
+	if previous_state == "jump" and self.on_ground and not_dusting :
+		not_dusting = false
+		$effects/AnimationPlayer.play("dust")
 	
 #------------------------------------------------------------------------------------------------------------
 #calculate player movements
@@ -145,11 +164,16 @@ func update_state_logic():
 	
 	if self.current_state == "jump":
 		$AnimationPlayer.play("jump")
+		not_dusting = true
 		
 	if self.current_state == "run":
 		$AnimationPlayer.play("run")
 	if self.current_state == "throw":
-		$AnimationPlayer.play("throw")
+		if linear_velocity.length() > 20:
+			$AnimationPlayer.play("throw_running")
+		else:
+			$AnimationPlayer.play("throw")
+	
 #------------------------------------------------------------------------------------------------------------
 #collision code for the player 
 func on_begin_contact(obj):
@@ -161,3 +185,8 @@ func on_begin_contact(obj):
 
 #--------------------------------------------------------------------------------------------------------------
 
+
+#throw timer 
+func _on_Timer_timeout():
+	print("throw timer is on")
+	get_tree().root.add_child(stone.instance())

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://menus/menu/menu.gd" type="Script" id=1]
 [ext_resource path="res://assets/images/backgroundDesert.png" type="Texture" id=2]
@@ -11,6 +11,43 @@
 [ext_resource path="res://menus/menu/assets/settings2.png" type="Texture" id=9]
 [ext_resource path="res://menus/menu/assets/exit.png" type="Texture" id=10]
 [ext_resource path="res://menus/menu/assets/exit2.png" type="Texture" id=11]
+[ext_resource path="res://objects/scarf/scarf.tscn" type="PackedScene" id=12]
+[ext_resource path="res://objects/player/baby.png" type="Texture" id=13]
+[ext_resource path="res://objects/bird/bluebird.png" type="Texture" id=14]
+
+[sub_resource type="Animation" id=1]
+resource_name = "idle"
+length = 3.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 2.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 2, 3, 4, 5, 7, 8 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "fly"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 2, 3, 4, 5 ]
+}
 
 [node name="menu" type="Control"]
 script = ExtResource( 1 )
@@ -21,10 +58,9 @@ position = Vector2( 508.538, 341.384 )
 texture = ExtResource( 2 )
 
 [node name="TileMap" type="TileMap" parent="."]
-visible = false
 tile_set = ExtResource( 3 )
 format = 1
-tile_data = PoolIntArray( 131078, 0, 0, 131079, 0, 0, 131080, 0, 0, 131081, 0, 0, 196614, 0, 0, 196615, 0, 0, 196616, 0, 0, 196617, 0, 0, 262150, 0, 0, 262151, 0, 0, 262152, 0, 0, 262153, 0, 0, 327686, 0, 0, 327687, 0, 0, 327688, 0, 0, 327689, 0, 0, 393222, 0, 0, 393223, 0, 0, 393224, 0, 0, 393225, 0, 0 )
+tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 14, 0, 0, 15, 0, 0, 65536, 0, 0, 65551, 0, 0, 131072, 0, 0, 131087, 0, 0, 196608, 0, 0, 196623, 0, 0, 262144, 0, 0, 262159, 0, 0, 327680, 0, 0, 327695, 0, 0, 393216, 0, 0, 393231, 0, 0, 458752, 0, 0, 458767, 0, 0, 524288, 0, 0, 524289, 0, 0, 524290, 0, 0, 524291, 0, 0, 524292, 0, 0, 524293, 0, 0, 524294, 0, 0, 524295, 0, 0, 524296, 0, 0, 524297, 0, 0, 524298, 0, 0, 524299, 0, 0, 524300, 0, 0, 524301, 0, 0, 524302, 0, 0, 524303, 0, 0, 589824, 0, 0, 589825, 0, 0, 589826, 0, 0, 589827, 0, 0, 589828, 0, 0, 589829, 0, 0, 589830, 0, 0, 589831, 0, 0, 589832, 0, 0, 589833, 0, 0, 589834, 0, 0, 589835, 0, 0, 589836, 0, 0, 589837, 0, 0, 589838, 0, 0, 589839, 0, 0 )
 
 [node name="play" type="TextureButton" parent="."]
 margin_left = 436.0
@@ -66,3 +102,30 @@ texture_normal = ExtResource( 10 )
 texture_hover = ExtResource( 11 )
 texture_focused = ExtResource( 11 )
 expand = true
+
+[node name="scarf" parent="." instance=ExtResource( 12 )]
+position = Vector2( 237.655, 457.561 )
+scale = Vector2( 0.8, 0.4 )
+
+[node name="player" type="Sprite" parent="."]
+position = Vector2( 226.101, 419.04 )
+texture = ExtResource( 13 )
+vframes = 5
+hframes = 9
+frame = 7
+
+[node name="playeranim" type="AnimationPlayer" parent="player"]
+autoplay = "idle"
+anims/idle = SubResource( 1 )
+
+[node name="bird" type="Sprite" parent="."]
+visible = false
+position = Vector2( 845.634, 132.153 )
+texture = ExtResource( 14 )
+vframes = 3
+hframes = 2
+frame = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="bird"]
+autoplay = "fly"
+anims/fly = SubResource( 2 )

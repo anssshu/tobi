@@ -4,9 +4,10 @@ extends RigidBody2D
 #------------------------------------------declare the class variables--------------------
 export var accn = 100
 var jump_speed = 1200
-var top_speed = 800
+var top_speed = 1000
 var on_ground = false
 var not_dusting = true
+
 var stone = preload("res://objects/stone/stone.tscn")
 var face = "right"
 var state_machine = {
@@ -29,29 +30,59 @@ var n = Vector2(0,-1) #initialise the collision normal
 
 #for movement on curve and plane surface
 
-
+#var ray_cast_to = -100*n
 #-------------------------------------------initialize object----------------------
 func _ready():
 	
 	timer = $Timer
 	# on_begin_contact
 	self.connect("body_entered",self,"on_begin_contact")
+	
 #-------------------------------------------------------------------
-
+#func _draw():
+	#draw_line($RayCast2D.position,self.ray_cast_to,Color(1,1,0,1))
+#------------------------------------------------------------
+func die():
+	var s =implode.instance()
+	s.position = self.position
+	s.scale = Vector2(0.5,0.5)
+	s.modulate = Color(1,0,0,1)
+	get_tree().root.add_child(s)
+	self.queue_free()
+func throw_stone(stone):
+	var s = stone.instance()
+	s.position = self.position+Vector2(-20,-40)
+	if self.face == "left":
+		s.v.x=-1*s.v.x
+		s.v += Vector2(self.linear_velocity.x,0)
+	if self.face == "right":
+		s.v += Vector2(self.linear_velocity.x,0)
+	get_tree().root.add_child(s)
+		
 #-----------------------------------------update object logic on each frame-------------------------------------	
 func _integrate_forces(state):
+	update()
+	if globals.life == 0:
+		die()
 	#print(abs(state.linear_velocity.x))
 	# 1 calculate  the collision normal 
 	self.calculate_collision_normal(state)
 	
-	
+	#self.n = $RayCast2D.get_collision_normal()
+	#if self.n == Vector2() or !on_ground:
+	#	self.n = Vector2(0,-1)
+	#print(n)
 	# 2  set the ray cast direction		
-	$RayCast2D.set("cast_to",-100*self.n)      
+	#$RayCast2D.set("cast_to",self.ray_cast_to)      
 	
 		
 	# 3 determine if the object is on the ground or not
 	self.determine_object_on_ground()
-	
+	#tweak gravity scale as per on ground
+	if on_ground and self.rotation != 0:
+		self.gravity_scale =0
+	else:
+		self.gravity_scale = 30
 	
 	# 4 calculate player states
 	self.calculate_state_transition(state)
@@ -62,17 +93,25 @@ func _integrate_forces(state):
 	# 6 update state logic
 	self.update_state_logic()
 #---------------------------------------------helper methods -----------------------------------------------------------------------------		
- # calculate  the collision normal 	
+#calculate collision normal with ray cast
+func calculate_collision_normal_with_rayCast(state):
+	self.n = $RayCast2D.get_collision_normal() 
+# calculate  the collision normal 	using collider
 func calculate_collision_normal(state):
 	if state.get_contact_count()>0 :
-		if state.get_contact_collider_object(0).get_class() == "StaticBody2D" :
+		#print()
+		if state.get_contact_collider_object(0).name == "Map":
+			self.n = Vector2(0,-1)
+		else:
 			self.n = state.get_contact_local_normal(0) #calculate the collision normal
-	else:
-		self.n = Vector2(0,-1)
+		#state.linear_velocity = state.linear_velocity.slide(self.n)
+	#else:
+		#self.n = Vector2(0,-1)
 
 #-------------------------------------------------------------------------------------------------------------------------------------
 # check whether the object is on the ground or not
 func determine_object_on_ground():
+	
 	if $RayCast2D.is_colliding():
 		self.on_ground = true
 		
@@ -82,11 +121,13 @@ func determine_object_on_ground():
 #------------------------------------------------------------------------------------------------------
 #calculate state transition
 func calculate_state_transition(state):
+	#print(n)
+	self.rotation = PI/2+n.angle()
 	var c = current_state
 	#throw stone logic
 	if Input.is_action_just_pressed("ui_accept"):
 		timer.start()
-		get_tree().root.add_child(stone.instance())
+		throw_stone(stone)
 	if Input.is_action_just_released("ui_accept"):
 		timer.stop()
 		
@@ -128,17 +169,19 @@ func calculate_state_transition(state):
 		$effects/AnimationPlayer.play("dust")
 	
 #------------------------------------------------------------------------------------------------------------
+
 #calculate player movements
 func calculate_player_movements(state):
 	var v= state.linear_velocity  # save the linear velocity
 	var t = n.rotated(PI/2)
+	var left = Input.is_action_pressed("ui_left")
+	var right = Input.is_action_pressed("ui_right")
 	
-	
-	if Input.is_action_pressed("ui_left") and abs(t.dot(v))<top_speed :
+	if left and abs(t.dot(v))<top_speed :
 		final_velocity  =  self.n.rotated(-PI/2)*accn
 		state.linear_velocity = state.linear_velocity+final_velocity
 		
-	if Input.is_action_pressed("ui_right") and abs(t.dot(v))<top_speed :
+	if right and abs(t.dot(v))<top_speed :
 		final_velocity = self.n.rotated(PI/2)*accn
 		state.linear_velocity = state.linear_velocity+final_velocity
 		
@@ -153,7 +196,9 @@ func calculate_player_movements(state):
 	if Input.is_action_just_pressed("ui_jump")  and on_ground:
 		final_velocity = move.up*jump_speed*1.5
 		state.linear_velocity = state.linear_velocity+final_velocity
-
+	if (not left and not right)and on_ground:
+		state.linear_velocity = state.linear_velocity.project(n)
+		
 #-----------------------------------------------------------------------------------------------------------------------
 #update animation
 func update_state_logic():
@@ -178,7 +223,7 @@ func update_state_logic():
 #collision code for the player 
 func on_begin_contact(obj):
 	# if player collides with the chicken
-	print("i hit ",obj.name)
+	print("i hit ",obj.get_class())
 	if obj.get("prop") == "chicken":
 		obj.set_deferred("mode",0)
 
@@ -188,5 +233,4 @@ func on_begin_contact(obj):
 
 #throw timer 
 func _on_Timer_timeout():
-	print("throw timer is on")
-	get_tree().root.add_child(stone.instance())
+	throw_stone(stone)

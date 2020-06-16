@@ -1,0 +1,63 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://objects/spider/spider.gd" type="Script" id=1]
+[ext_resource path="res://objects/spider/body.png" type="Texture" id=2]
+[ext_resource path="res://objects/ant/ant_leg.png" type="Texture" id=3]
+
+[sub_resource type="Animation" id=1]
+resource_name = "walk"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("leg:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 2, 3, 4, 5 ]
+}
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 33.6041, 26.4341 )
+
+[node name="spider" type="Area2D"]
+script = ExtResource( 1 )
+
+[node name="body" type="Sprite" parent="."]
+position = Vector2( 9.0101, -3.68528 )
+scale = Vector2( 0.202122, 0.156003 )
+texture = ExtResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "walk"
+anims/walk = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 9.86867, -7.25076 )
+shape = SubResource( 2 )
+
+[node name="forward" type="RayCast2D" parent="."]
+position = Vector2( 29.3155, -21.4051 )
+enabled = true
+cast_to = Vector2( 50, 0 )
+
+[node name="down" type="RayCast2D" parent="."]
+position = Vector2( 36.3859, 1.66624 )
+enabled = true
+
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+
+[node name="leg" type="Sprite" parent="."]
+position = Vector2( 2.45257, 4.62576 )
+scale = Vector2( 0.5, 0.356 )
+texture = ExtResource( 3 )
+vframes = 2
+hframes = 3
+frame = 1
+[connection signal="body_entered" from="." to="." method="_on_spider_body_entered"]
+[connection signal="screen_entered" from="VisibilityEnabler2D" to="." method="_on_VisibilityEnabler2D_screen_entered"]
+[connection signal="screen_exited" from="VisibilityEnabler2D" to="." method="_on_VisibilityEnabler2D_screen_exited"]

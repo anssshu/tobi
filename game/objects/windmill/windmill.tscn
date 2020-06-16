@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://objects/windmill/base.svg" type="Texture" id=1]
+[ext_resource path="res://objects/windmill/wings.gd" type="Script" id=2]
+[ext_resource path="res://objects/windmill/wings.svg" type="Texture" id=3]
+
+[node name="windmill" type="Node2D"]
+
+[node name="base" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+offset = Vector2( -4.03107, -88.7319 )
+
+[node name="wings" type="Node2D" parent="base"]
+position = Vector2( -2, -175 )
+script = ExtResource( 2 )
+
+[node name="wing1" type="Sprite" parent="base/wings"]
+rotation = 1.0472
+texture = ExtResource( 3 )
+offset = Vector2( -0.175751, -69.4121 )
+
+[node name="wing2" type="Sprite" parent="base/wings"]
+rotation = -1.0472
+texture = ExtResource( 3 )
+offset = Vector2( -0.175751, -69.4121 )
+
+[node name="wing3" type="Sprite" parent="base/wings"]
+rotation = 3.14159
+texture = ExtResource( 3 )
+offset = Vector2( -0.175751, -69.4121 )

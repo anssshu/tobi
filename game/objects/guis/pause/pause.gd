@@ -26,7 +26,7 @@ func _process(delta):
 func on_menu():
 	get_tree().paused = false
 	globals.reset()
-	get_tree().change_scene(globals.res.get("main_menu"))
+	game.set_state(game.states.menu)
 	
 func on_play():
 	pause = false

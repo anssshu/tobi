@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://levels/demo/water.gd" type="Script" id=1]
+[ext_resource path="res://common/assets/shaders/water.tres" type="Material" id=2]
+[ext_resource path="res://common/assets/images/box1.png" type="Texture" id=3]
+
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 400, 200 )
+
+[node name="water" type="Area2D"]
+position = Vector2( 1361.65, 583.565 )
+script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="water" type="Sprite" parent="."]
+material = ExtResource( 2 )
+position = Vector2( -12.5435, -124.374 )
+scale = Vector2( 10, 4.16982 )
+texture = ExtResource( 3 )
+[connection signal="body_entered" from="." to="." method="_on_water_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_water_body_exited"]

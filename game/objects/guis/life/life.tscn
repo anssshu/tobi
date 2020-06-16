@@ -3,7 +3,6 @@
 [ext_resource path="res://objects/guis/life/life.gd" type="Script" id=1]
 [ext_resource path="res://objects/guis/life/assets/heart.png" type="Texture" id=2]
 
-
 [node name="life" type="Node2D"]
 script = ExtResource( 1 )
 

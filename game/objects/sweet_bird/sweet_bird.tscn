@@ -1,0 +1,96 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://objects/sweet_bird/sweet_bird.gd" type="Script" id=1]
+[ext_resource path="res://objects/sweet_bird/bird2.png" type="Texture" id=2]
+[ext_resource path="res://objects/sweet_bird/birdWing.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 59.7298, 54.9367 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "eat"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 28.3351, -16.2974, -31.7196, -12.3437, -31.0108, 28.3 ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite/birdWing:rotation_degrees")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 15.0, -75.0, 15.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("sprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -1 ), Vector2( 0, 0 ) ]
+}
+
+[node name="sweet_bird" type="Area2D"]
+script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 12.8866, -47.0032 )
+shape = SubResource( 1 )
+
+[node name="sprite" type="Sprite" parent="."]
+rotation = 0.493969
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 2 )
+offset = Vector2( -23.9576, -95.6245 )
+
+[node name="birdWing" type="Sprite" parent="sprite"]
+position = Vector2( -18.1695, -106.768 )
+rotation = 0.261799
+texture = ExtResource( 3 )
+offset = Vector2( 34.2226, 15.6352 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "eat"
+anims/eat = SubResource( 2 )
+anims/fly = SubResource( 3 )
+
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+
+[node name="down" type="RayCast2D" parent="."]
+enabled = true
+
+[node name="fwd" type="RayCast2D" parent="."]
+position = Vector2( -5.85211, -50.7182 )
+enabled = true
+cast_to = Vector2( -100, 0 )
+
+[node name="top" type="RayCast2D" parent="."]
+position = Vector2( 0.880249, -79.2229 )
+enabled = true
+cast_to = Vector2( 0, -50 )
+[connection signal="area_entered" from="." to="." method="_on_sweet_bird_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_sweet_bird_body_entered"]
+[connection signal="screen_entered" from="VisibilityEnabler2D" to="." method="_on_VisibilityEnabler2D_screen_entered"]
+[connection signal="screen_exited" from="VisibilityEnabler2D" to="." method="_on_VisibilityEnabler2D_screen_exited"]

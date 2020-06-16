@@ -1,0 +1,13 @@
+How to create a game
+
+first create a godot project
+
+organise it this way
+
+--objects
+--maps
+--menus
+--levels
+--
+
+

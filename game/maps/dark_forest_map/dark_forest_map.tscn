@@ -1,0 +1,14 @@
+[gd_scene format=2]
+
+[node name="dark_forest_map" type="Node2D"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="images" type="Node2D" parent="."]
+
+[node name="others" type="Node2D" parent="."]
+
+[node name="TileMap" type="TileMap" parent="."]
+format = 1

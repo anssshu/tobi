@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://objects/navigator/navigator.gd" type="Script" id=1]
+[ext_resource path="res://objects/navigator/parrott.png" type="Texture" id=2]
+
+[node name="navigator" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+current = true
+drag_margin_h_enabled = false
+drag_margin_v_enabled = false
+
+[node name="parrott" type="Sprite" parent="."]
+position = Vector2( 512, 300 )
+texture = ExtResource( 2 )

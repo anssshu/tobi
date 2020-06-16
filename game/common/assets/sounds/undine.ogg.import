@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/undine.ogg-7f13786f7e221f249fe548d948317fcc.oggstr"
+
+[deps]
+
+source_file="res://common/assets/sounds/undine.ogg"
+dest_files=[ "res://.import/undine.ogg-7f13786f7e221f249fe548d948317fcc.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

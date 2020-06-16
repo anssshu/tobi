@@ -5,8 +5,7 @@
 [ext_resource path="res://objects/guis/pause/pause.tscn" type="PackedScene" id=3]
 [ext_resource path="res://objects/guis/life/life.tscn" type="PackedScene" id=4]
 
-
-[node name="hud" type="ParallaxBackground"]
+[node name="hud" type="CanvasLayer"]
 layer = 8
 
 [node name="healthbar" parent="." instance=ExtResource( 1 )]
@@ -14,6 +13,7 @@ visible = false
 position = Vector2( 265.713, 26.2846 )
 
 [node name="pause_btn" parent="." instance=ExtResource( 2 )]
+visible = false
 margin_left = 4.0
 margin_top = 541.0
 margin_right = 54.0
@@ -23,3 +23,4 @@ expand = true
 [node name="pause_menu" parent="." instance=ExtResource( 3 )]
 
 [node name="life" parent="." instance=ExtResource( 4 )]
+visible = false

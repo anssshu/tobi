@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://objects/boss/tail.png" type="Texture" id=1]
+[ext_resource path="res://objects/boss/boss.svg" type="Texture" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "New Anim"
+length = 0.3
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("tail:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 2, 3 ]
+}
+
+[node name="boss" type="Node2D"]
+position = Vector2( 489.747, 496.596 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="tail" type="Sprite" parent="."]
+position = Vector2( 190.119, 48.8402 )
+texture = ExtResource( 1 )
+vframes = 2
+hframes = 2
+frame = 3
+
+[node name="boss" type="Sprite" parent="."]
+position = Vector2( 28.7751, -192.983 )
+texture = ExtResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "New Anim"
+playback_speed = 0.5
+"anims/New Anim" = SubResource( 1 )

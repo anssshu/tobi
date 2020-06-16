@@ -1,0 +1,185 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://levels/village/village.gd" type="Script" id=1]
+[ext_resource path="res://levels/village/scene_transition.gd" type="Script" id=2]
+[ext_resource path="res://levels/village/assets/box1.png" type="Texture" id=3]
+[ext_resource path="res://common/menus/gameover/gameover.tscn" type="PackedScene" id=4]
+[ext_resource path="res://objects/guis/hud/hud.tscn" type="PackedScene" id=5]
+[ext_resource path="res://maps/village_map/map.tscn" type="PackedScene" id=6]
+[ext_resource path="res://levels/village/assets/flag.svg" type="Texture" id=7]
+[ext_resource path="res://levels/village/flag.gd" type="Script" id=8]
+[ext_resource path="res://objects/sweet_bird/sweet_bird.tscn" type="PackedScene" id=9]
+[ext_resource path="res://levels/village/assets/arrow.svg" type="Texture" id=10]
+[ext_resource path="res://objects/owl/owl.tscn" type="PackedScene" id=11]
+[ext_resource path="res://levels/village/assets/notice_board.svg" type="Texture" id=12]
+[ext_resource path="res://objects/tobi/tobi.tscn" type="PackedScene" id=13]
+
+[sub_resource type="Animation" id=1]
+resource_name = "start"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 70.7485, 253.541 )
+
+[sub_resource type="Animation" id=4]
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.12566, 1 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 46.9641, 349.883 )
+
+[node name="scene" type="Node2D"]
+position = Vector2( 0, 20 )
+script = ExtResource( 1 )
+
+[node name="ui" type="Node2D" parent="."]
+editor/display_folded = true
+
+[node name="scene_transition" type="CanvasLayer" parent="ui"]
+script = ExtResource( 2 )
+
+[node name="start" type="Sprite" parent="ui/scene_transition"]
+position = Vector2( -65.3898, -155.594 )
+scale = Vector2( 17.8886, 12.9236 )
+texture = ExtResource( 3 )
+centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ui/scene_transition/start"]
+anims/start = SubResource( 1 )
+
+[node name="end" type="Sprite" parent="ui/scene_transition"]
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( -42.2987, -97.2988 )
+scale = Vector2( 17.6792, 12.5477 )
+texture = ExtResource( 3 )
+centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ui/scene_transition/end"]
+anims/become_dark = SubResource( 2 )
+
+[node name="gameover" parent="ui/scene_transition" instance=ExtResource( 4 )]
+visible = false
+position = Vector2( 30, -110 )
+
+[node name="hud" parent="ui" instance=ExtResource( 5 )]
+
+[node name="map" parent="." instance=ExtResource( 6 )]
+
+[node name="objects" type="Node2D" parent="."]
+
+[node name="flag" type="Sprite" parent="objects"]
+editor/display_folded = true
+position = Vector2( 7886.84, 184.236 )
+texture = ExtResource( 7 )
+script = ExtResource( 8 )
+
+[node name="Area2D" type="Area2D" parent="objects/flag"]
+position = Vector2( -2.06055, 8.24234 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="objects/flag/Area2D"]
+position = Vector2( 14.4238, -197.816 )
+shape = SubResource( 3 )
+
+[node name="Timer" type="Timer" parent="objects/flag"]
+
+[node name="sweet_bird" parent="objects" instance=ExtResource( 9 )]
+position = Vector2( 5354.27, -43.1101 )
+
+[node name="sweet_bird2" parent="objects" instance=ExtResource( 9 )]
+position = Vector2( 2622.63, 74.5908 )
+
+[node name="sweet_bird3" parent="objects" instance=ExtResource( 9 )]
+position = Vector2( 7438.56, 133.441 )
+
+[node name="arrow" type="Sprite" parent="objects"]
+editor/display_folded = true
+modulate = Color( 1, 1, 1, 0.941176 )
+position = Vector2( 7508.09, 249.876 )
+rotation = -0.22083
+scale = Vector2( 1.12566, 1 )
+texture = ExtResource( 10 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="objects/arrow"]
+autoplay = "blink"
+playback_speed = -2.25
+anims/blink = SubResource( 4 )
+
+[node name="owl" parent="objects" instance=ExtResource( 11 )]
+position = Vector2( 6423.83, -202.728 )
+
+[node name="start_bee_timer" type="Area2D" parent="objects"]
+editor/display_folded = true
+position = Vector2( 2296.97, 309.304 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="objects/start_bee_timer"]
+position = Vector2( 42.5305, -307.131 )
+shape = SubResource( 5 )
+
+[node name="sprite" type="Sprite" parent="objects/start_bee_timer"]
+texture = ExtResource( 12 )
+
+[node name="stop_bee_timer" type="Area2D" parent="objects"]
+editor/display_folded = true
+position = Vector2( 5763.83, 214.272 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="objects/stop_bee_timer"]
+position = Vector2( 42.5305, -307.131 )
+shape = SubResource( 5 )
+
+[node name="sprite" type="Sprite" parent="objects/stop_bee_timer"]
+texture = ExtResource( 12 )
+
+[node name="others" type="Node2D" parent="."]
+editor/display_folded = true
+
+[node name="bee_timer" type="Timer" parent="others"]
+
+[node name="player" parent="." instance=ExtResource( 13 )]
+position = Vector2( 1135.33, 259.424 )
+[connection signal="animation_finished" from="ui/scene_transition/end/AnimationPlayer" to="ui/scene_transition" method="_on_AnimationPlayer_animation_finished"]
+[connection signal="body_entered" from="objects/flag/Area2D" to="objects/flag" method="_on_Area2D_body_entered"]
+[connection signal="timeout" from="objects/flag/Timer" to="objects/flag" method="_on_Timer_timeout"]
+[connection signal="body_entered" from="objects/start_bee_timer" to="." method="_on_start_bee_timer_body_entered"]
+[connection signal="body_entered" from="objects/stop_bee_timer" to="." method="_on_stop_bee_timer_body_entered"]

@@ -2,6 +2,7 @@ extends TextureButton
 
 func _ready():
 	self.connect("button_down",self,"on_button_down")
+	show()
 	
 func on_button_down():
 	#print("paused")

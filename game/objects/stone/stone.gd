@@ -1,42 +1,81 @@
-extends Area2D
+extends KinematicBody2D
+"""
+stone is on collision layer 2 and mask 1 and same is player so that each other will no collide 
+"""
+class_name  Stone 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 var g = Vector2(0,1650)
-var u = Vector2(900,-300)
-var v = Vector2()
+var v = Vector2(900,-500)
+var colliding = false
 # Called when the node enters the scene tree for the first time.
+func get_class():
+	return "Stone"
 func _ready():
-	
-	# on_begin_contact
-	self.connect("body_entered",self,"on_begin_contact")
-	v=u
-	print(v)
-func _enter_tree():
-	var player = get_tree().root.get_node("level1/player")
-	position = player.position+Vector2(-20,-40)
-	if player.face == "left":
-		u.x=-1*u.x
-		u += Vector2(player.linear_velocity.x,0)
-	if player.face == "right":
-		u += Vector2(player.linear_velocity.x,0)
-	print(player.current_state)
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	v+=  g*delta
-	position +=v*delta
-	
+	$Timer.connect("timeout",self,"timeout")
+	$VisibilityNotifier2D.connect("viewport_exited",self,"kill_me")
+	$Timer.start()
 
-#collision with physics body 2d
-func on_begin_contact(body):
-	print("collided with ",body)
-	if body.name != "player":
-		var s = preload("res://objects/implode/implode.tscn").instance()
-		s.position = self.position
-		get_tree().root.add_child(s)
-		self.queue_free()
+func kill_me(viewport):
+	print("stone:i am out and dead")
+	queue_free()
+	
+func _enter_tree():
+	pass
+	#var player = get_tree().root.get_node("level1/player")
+	#position = player.position+Vector2(-20,-40)
+	#if player.face == "left":
+		#v.x=-1*v.x
+		#v += Vector2(player.linear_velocity.x,0)
+	#if player.face == "right":
+		#v += Vector2(player.linear_velocity.x,0)
+	#print(player.current_state)
 		
-#collision with area 2d
-func _on_stone_area_entered(area):
-	pass # Replace with function body.
+func timeout():
+	#implode_on_col()
+	queue_free()
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process_col(col):
+	var c=0
+	if col:
+		c=1
+		on_stay_collision(col)
+		
+		#dispose_on_col()
+	else :
+		c=0	
+	if c==1 and colliding==false :
+		on_enter_collision(col)
+		colliding = true
+	if c==0 and colliding :
+		on_exit_collision(col)
+		colliding = false
+		
+		
+func _physics_process(delta):
+	#calculate final velocity
+	v+=  g*delta
+	var col = move_and_collide(v*delta)
+	_process_col(col)
+#collision with physics body 2d
+func implode_on_col():
+	var s = preload("res://objects/implode/implode.tscn").instance()
+	s.position = self.position
+	s.scale = Vector2(0.5,0.5)
+	s.modulate = Color(1,0,0,1)
+	get_tree().root.add_child(s)
+	self.queue_free()
+
+#collision code for the kinematic body	
+func on_enter_collision(col):
+	#print("enter col ")
+	v = v.bounce(col.normal)*0.5
+func on_exit_collision(col):
+	#print("exit col")	
+	pass
+				
+func on_stay_collision(col):
+	pass
+	#v = v.bounce(col.normal)*0.5
+	#g=Vector2()
+
+

@@ -1,0 +1,136 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://maps/village_map/map.gd" type="Script" id=1]
+[ext_resource path="res://maps/village_map/assets/sky.svg" type="Texture" id=2]
+[ext_resource path="res://objects/windmill/windmill.tscn" type="PackedScene" id=3]
+[ext_resource path="res://maps/village_map/assets/parallax3.svg" type="Texture" id=4]
+[ext_resource path="res://maps/village_map/assets/parallax2.svg" type="Texture" id=5]
+[ext_resource path="res://maps/village_map/assets/parallax.svg" type="Texture" id=6]
+[ext_resource path="res://maps/village_map/assets/bush.svg" type="Texture" id=7]
+[ext_resource path="res://maps/village_map/assets/house.svg" type="Texture" id=8]
+[ext_resource path="res://maps/village_map/assets/tree_end.svg" type="Texture" id=9]
+[ext_resource path="res://maps/village_map/assets/stage.svg" type="Texture" id=10]
+[ext_resource path="res://maps/village_map/assets/house2.svg" type="Texture" id=11]
+
+[node name="map" type="Node2D"]
+position = Vector2( 6.16846, -17.2725 )
+script = ExtResource( 1 )
+
+[node name="background" type="ParallaxBackground" parent="."]
+editor/display_folded = true
+
+[node name="sky" type="Sprite" parent="background"]
+position = Vector2( 512.709, 63.6693 )
+texture = ExtResource( 2 )
+
+[node name="hills" type="ParallaxLayer" parent="background"]
+editor/display_folded = true
+position = Vector2( 0, -23 )
+motion_scale = Vector2( 0.2, 0.1 )
+motion_mirroring = Vector2( 1024, 0 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="windmill" parent="background/hills" instance=ExtResource( 3 )]
+position = Vector2( 119.785, -6.12997 )
+
+[node name="sprite" type="Sprite" parent="background/hills"]
+position = Vector2( 0, -167.821 )
+texture = ExtResource( 4 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 1024, 600 )
+
+[node name="meadow" type="ParallaxLayer" parent="background"]
+editor/display_folded = true
+position = Vector2( 0, -84 )
+motion_scale = Vector2( 0.4, 0.1 )
+motion_mirroring = Vector2( 1024, 0 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="sprite" type="Sprite" parent="background/meadow"]
+position = Vector2( 5.44153, -135.613 )
+texture = ExtResource( 5 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 1024, 600 )
+
+[node name="grassfield" type="ParallaxLayer" parent="background"]
+editor/display_folded = true
+position = Vector2( 0, -154 )
+motion_scale = Vector2( 0.8, 0.1 )
+motion_mirroring = Vector2( 1024, 0 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="sprite" type="Sprite" parent="background/grassfield"]
+position = Vector2( 9.52264, -10.5585 )
+texture = ExtResource( 6 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 1024, 600 )
+
+[node name="bush" type="Sprite" parent="background/grassfield"]
+position = Vector2( 525.271, 426.213 )
+rotation = 0.136296
+texture = ExtResource( 7 )
+offset = Vector2( 4.11816, -92.3391 )
+
+[node name="Map" type="StaticBody2D" parent="."]
+editor/display_folded = true
+
+[node name="ground" type="CollisionPolygon2D" parent="Map"]
+position = Vector2( 0, -1401.24 )
+polygon = PoolVector2Array( 8000, 2000, 0, 2000, -3.29913, 1311.19, 701.801, 1285.26, 714.165, 1487.51, 688.832, 1473.51, 690.832, 1510.18, 574.165, 1512.85, 576.165, 1666.85, 879.75, 1667.12, 877.687, 1607.28, 908.122, 1607.28, 908.638, 1704.78, 744.141, 1704.81, 744.141, 1843.82, 670.635, 1842.54, 672.44, 1944.83, 825, 1938.1, 1089, 1916.1, 1379, 1882.2, 1379, 1881.3, 1947.8, 1792, 2079.9, 1779, 2221.9, 1772, 2291, 1772, 2440, 1775, 2654, 1795.2, 2809, 1814.2, 3145.3, 1867, 3313.2, 1886, 3439.1, 1894, 3534, 1894, 3689, 1895, 3840.9, 1895, 4435, 1859.1, 4509, 1850.2, 5080, 1785.2, 5164, 1772.2, 5424.7, 1724, 5594.8, 1702, 5720.9, 1691, 5841, 1692.1, 5964, 1702.2, 6070, 1721.3, 6256.2, 1761, 6359.3, 1779, 6477, 1790, 6633, 1791, 7078, 1779, 7356, 1753.2, 7440, 1736.3, 7610.7, 1691, 7724.8, 1672, 7863.9, 1659, 7995, 1657, 7978, 1393.1, 7978, 1386.9, 7981, 1384.9, 7981, 1382, 7978, 1348.1, 7978, 1340.8, 7980, 1339.8, 7980, 1338, 8000, 1338 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="images" type="Node2D" parent="."]
+editor/display_folded = true
+
+[node name="house" type="Sprite" parent="images"]
+position = Vector2( 4164.28, 479.081 )
+scale = Vector2( 0.683407, 0.653386 )
+texture = ExtResource( 8 )
+offset = Vector2( 3.55127, -374.418 )
+
+[node name="bush" type="Sprite" parent="images"]
+position = Vector2( 2758.66, 453.435 )
+rotation = 0.136296
+texture = ExtResource( 7 )
+offset = Vector2( 4.11816, -92.3391 )
+
+[node name="bush2" type="Sprite" parent="images"]
+position = Vector2( 1386.6, 542.72 )
+rotation = 0.136296
+texture = ExtResource( 7 )
+offset = Vector2( 4.11816, -92.3391 )
+
+[node name="tree_end" type="Sprite" parent="images"]
+position = Vector2( 7002.06, 436.523 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 9 )
+offset = Vector2( -117.391, -198.514 )
+
+[node name="ground" type="Sprite" parent="images"]
+position = Vector2( 0, 200 )
+texture = ExtResource( 10 )
+centered = false
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="house2" type="Sprite" parent="images"]
+position = Vector2( 577.702, 179.427 )
+texture = ExtResource( 11 )
+
+[node name="bird_timer" type="Timer" parent="."]
+wait_time = 2.0

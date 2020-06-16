@@ -1,0 +1,86 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://maps/jungle_map/jungle_map.gd" type="Script" id=1]
+[ext_resource path="res://maps/jungle_map/asset/background.svg" type="Texture" id=2]
+[ext_resource path="res://maps/jungle_map/asset/parallax3.svg" type="Texture" id=3]
+[ext_resource path="res://maps/jungle_map/asset/parallax2.svg" type="Texture" id=4]
+[ext_resource path="res://maps/jungle_map/asset/parallax1.svg" type="Texture" id=5]
+[ext_resource path="res://maps/jungle_map/asset/ground.svg" type="Texture" id=6]
+[ext_resource path="res://maps/jungle_map/asset/cave_ent.png" type="Texture" id=7]
+[ext_resource path="res://maps/jungle_map/asset/cave_entrance.svg" type="Texture" id=8]
+[ext_resource path="res://objects/tobi/tobi.tscn" type="PackedScene" id=9]
+
+[node name="jungle_map" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="background" type="ParallaxBackground" parent="."]
+editor/display_folded = true
+
+[node name="background" type="Sprite" parent="background"]
+position = Vector2( 509.85, 301.572 )
+texture = ExtResource( 2 )
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="background"]
+motion_scale = Vector2( 0.3, 0.1 )
+motion_mirroring = Vector2( 1024, 0 )
+
+[node name="parallax3" type="Sprite" parent="background/ParallaxLayer3"]
+visible = false
+texture = ExtResource( 3 )
+centered = false
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="background"]
+motion_scale = Vector2( 0.4, 0.1 )
+motion_mirroring = Vector2( 1024, 0 )
+
+[node name="parallax2" type="Sprite" parent="background/ParallaxLayer2"]
+position = Vector2( 0, -250 )
+texture = ExtResource( 4 )
+centered = false
+
+[node name="ParallaxLayer1" type="ParallaxLayer" parent="background"]
+motion_scale = Vector2( 0.6, 0.1 )
+motion_mirroring = Vector2( 1024, 0 )
+
+[node name="parallax1" type="Sprite" parent="background/ParallaxLayer1"]
+position = Vector2( 0, -812 )
+scale = Vector2( 1, 2 )
+texture = ExtResource( 5 )
+centered = false
+
+[node name="staticbody" type="StaticBody2D" parent="."]
+editor/display_folded = true
+
+[node name="ground" type="Sprite" parent="staticbody"]
+position = Vector2( 2556.8, 456.213 )
+texture = ExtResource( 6 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="staticbody"]
+position = Vector2( 2556.8, 466.163 )
+polygon = PoolVector2Array( 1018, 16, 1018, 17, 1459, 28, 1459, 29.1, 1944, 47.1, 1944, 48.1, 2547, 76.1, 2554.36, -771.507, 2632.4, -768.989, 2687.79, 69.3496, 2554.36, 154.946, -2560, 150, -2624.25, 154.887, -2629.23, -530.865, -2154.5, -579.998, -2154.5, 65.8682, -1634, 80, -1594, 80, -1311, 87, -1240, 87, -1023, 89, -1023, 88, -876, 87, -876, 86.1, -659, 80.1, -659, 79.1, -452, 70.1, -452, 69.1, 299.9, 26, 322, 26, 504, 18, 538, 18, 692, 15, 692, 14 )
+
+[node name="cave" type="CollisionPolygon2D" parent="staticbody"]
+position = Vector2( 5214.99, 322.692 )
+rotation = 0.0621517
+polygon = PoolVector2Array( 300, -387.9, 300, 400, -242, 400, -102.71, 220.272, -116.052, 35.6827, -250.9, 47, -252.4, 47, -270.4, 39, -275.2, 39, -300, 35, -300, -4, -297.1, -4, -208, -9.89999, -161.6, -41, -158.4, -41, -59, -76.4, -59, -77.4, -25.4, -166, -24.2, -166, 53, -305.6, 53, -308.4, 90, -394.3, 90, -397.1 )
+
+[node name="cave_ent" type="Sprite" parent="staticbody/cave"]
+position = Vector2( -229.435, 120.615 )
+texture = ExtResource( 7 )
+
+[node name="images" type="Node2D" parent="."]
+editor/display_folded = true
+
+[node name="cave_entrance" type="Sprite" parent="images"]
+position = Vector2( 5220.54, 322.692 )
+rotation = 0.0621517
+z_index = 1
+texture = ExtResource( 8 )
+
+[node name="others" type="Node2D" parent="."]
+
+[node name="tilemap" type="TileMap" parent="."]
+format = 1
+
+[node name="player" parent="." instance=ExtResource( 9 )]
+position = Vector2( 3825.27, 137.691 )

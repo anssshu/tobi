@@ -58,6 +58,7 @@ position = Vector2( 3850, -100 )
 current = true
 
 [node name="ui" type="CanvasLayer" parent="."]
+editor/display_folded = true
 
 [node name="play" type="TextureButton" parent="ui"]
 margin_left = 436.0

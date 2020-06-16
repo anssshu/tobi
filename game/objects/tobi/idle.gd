@@ -4,7 +4,7 @@ extends State
 
 func enter():
 	player.anim.play("idle")
-	
+	player.get_node("sprite/scarf/sprite").play("idle")
 func run():
 	player.v.x = 0
 	

@@ -6,7 +6,6 @@
 [ext_resource path="res://objects/tobi/tobi.tscn" type="PackedScene" id=4]
 
 [node name="cave_map" type="Node2D"]
-editor/display_folded = true
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_horizontal_guides_": [ -515.455 ]
@@ -17,8 +16,6 @@ __meta__ = {
 [node name="background" type="Sprite" parent="ParallaxBackground"]
 texture = ExtResource( 2 )
 centered = false
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 3 )

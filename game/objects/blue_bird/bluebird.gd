@@ -17,7 +17,7 @@ func _process(delta):
 
 func attack():
 	#get player posiotion 
-	var p = get_tree().root.get_node("demo/player").position
+	var p = get_tree().root.get_node("jungle/jungle_map/player").position
 	var dir = (p-position).normalized()
 	v = dir*6
 	var angle = dir.angle()+PI

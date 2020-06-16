@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://maps/jungle_map/jungle_map.gd" type="Script" id=1]
 [ext_resource path="res://maps/jungle_map/asset/background.svg" type="Texture" id=2]
@@ -8,7 +8,9 @@
 [ext_resource path="res://maps/jungle_map/asset/ground.svg" type="Texture" id=6]
 [ext_resource path="res://maps/jungle_map/asset/cave_ent.png" type="Texture" id=7]
 [ext_resource path="res://maps/jungle_map/asset/cave_entrance.svg" type="Texture" id=8]
-[ext_resource path="res://objects/tobi/tobi.tscn" type="PackedScene" id=9]
+[ext_resource path="res://objects/ant/ant.tscn" type="PackedScene" id=9]
+[ext_resource path="res://objects/blue_bird/bluebird.tscn" type="PackedScene" id=10]
+[ext_resource path="res://objects/tobi/tobi.tscn" type="PackedScene" id=11]
 
 [node name="jungle_map" type="Node2D"]
 script = ExtResource( 1 )
@@ -79,8 +81,28 @@ texture = ExtResource( 8 )
 
 [node name="others" type="Node2D" parent="."]
 
+[node name="ant" parent="others" instance=ExtResource( 9 )]
+position = Vector2( 1137.54, 553.924 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="ant2" parent="others" instance=ExtResource( 9 )]
+position = Vector2( 4198.4, 500.515 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="ant3" parent="others" instance=ExtResource( 9 )]
+position = Vector2( 2640.49, 496.539 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="ant4" parent="others" instance=ExtResource( 9 )]
+position = Vector2( 885.47, 545.947 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="bluebird" parent="others" instance=ExtResource( 10 )]
+position = Vector2( 1220.89, 71.0027 )
+scale = Vector2( 0.4, 0.4 )
+
 [node name="tilemap" type="TileMap" parent="."]
 format = 1
 
-[node name="player" parent="." instance=ExtResource( 9 )]
-position = Vector2( 3825.27, 137.691 )
+[node name="player" parent="." instance=ExtResource( 11 )]
+position = Vector2( 935.155, -261.601 )

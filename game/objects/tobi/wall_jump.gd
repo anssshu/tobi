@@ -3,6 +3,7 @@ extends State
 
 func enter():
 	player.anim.play("jump")
+	player.get_node("sprite/scarf/sprite").play("idle")
 	if player.check_player_on_right_wall():
 		player.face = "left"
 		player.v.x = -500

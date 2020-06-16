@@ -17,7 +17,7 @@ func _on_Timer_timeout():
 	#get_tree().change_scene("res://stages/stage1/ground.tscn")
 	globals.current_level = 2
 	game.set_state(game.states.game_play)
-	globals.check_point = Vector2(500,200)
+	globals.check_point = Vector2(550,200)
 	#globals.reset()
 	$Timer.stop()
 	

@@ -45,7 +45,7 @@ onready var anim = $AnimationPlayer
 func _ready():
 	#add exceptions for raycast2Ds
 	add_exceptions()
-	
+	#position = globals.check_point
 	#set gravity as per jump time and height
 	g.y = 2*jump_height/pow(jump_time,2)
 	jump_speed = g.y*jump_time
@@ -57,15 +57,18 @@ func _ready():
 	#position = globals.check_point
 func _physics_process(delta):
 	#globals.check_point = position
-	if left:
+	if self.v.x < 0 :
 		self.face = "left"
-	if right:
+	elif self.v.x > 0:
 		self.face = "right"
-		
+	else:
+		pass
+	
+	var sx = abs($sprite.scale.x)
 	if face == "left":
-		$sprite.flip_h = true
+		$sprite.scale.x = -sx
 	if face == "right":
-		$sprite.flip_h = false
+		$sprite.scale.x = sx
 	#start the jump timer
 	jump_timer+=delta
 	if jump_timer > 5:

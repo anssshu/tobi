@@ -104,7 +104,6 @@ position = Vector2( 30, -110 )
 [node name="objects" type="Node2D" parent="."]
 
 [node name="flag" type="Sprite" parent="objects"]
-editor/display_folded = true
 position = Vector2( 7886.84, 184.236 )
 texture = ExtResource( 7 )
 script = ExtResource( 8 )

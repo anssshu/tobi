@@ -4,6 +4,7 @@ extends State
 
 func enter():
 	player.anim.play("jump")
+	player.get_node("sprite/scarf/sprite").play("idle")
 	player.v.y = -player.jump_speed
 func run():
 	#jump to move for motion in air

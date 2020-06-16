@@ -1,17 +1,19 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://objects/tobi/tobi.gd" type="Script" id=1]
 [ext_resource path="res://objects/tobi/baby.png" type="Texture" id=2]
-[ext_resource path="res://objects/tobi/state_machine.gd" type="Script" id=3]
-[ext_resource path="res://objects/tobi/idle.gd" type="Script" id=4]
-[ext_resource path="res://objects/tobi/run.gd" type="Script" id=5]
-[ext_resource path="res://objects/tobi/jump.gd" type="Script" id=6]
-[ext_resource path="res://objects/tobi/fall.gd" type="Script" id=7]
-[ext_resource path="res://objects/tobi/wall_jump.gd" type="Script" id=8]
-[ext_resource path="res://objects/tobi/duck.gd" type="Script" id=9]
-[ext_resource path="res://objects/tobi/wall_slide.gd" type="Script" id=10]
-[ext_resource path="res://objects/tobi/attack.gd" type="Script" id=11]
-[ext_resource path="res://objects/tobi/die.gd" type="Script" id=12]
+[ext_resource path="res://objects/scarf2/scarf.tscn" type="PackedScene" id=3]
+[ext_resource path="res://objects/tobi/state_machine.gd" type="Script" id=4]
+[ext_resource path="res://objects/tobi/idle.gd" type="Script" id=5]
+[ext_resource path="res://objects/tobi/run.gd" type="Script" id=6]
+[ext_resource path="res://objects/tobi/jump.gd" type="Script" id=7]
+[ext_resource path="res://objects/tobi/fall.gd" type="Script" id=8]
+[ext_resource path="res://objects/tobi/wall_jump.gd" type="Script" id=9]
+[ext_resource path="res://objects/tobi/duck.gd" type="Script" id=10]
+[ext_resource path="res://objects/tobi/wall_slide.gd" type="Script" id=11]
+[ext_resource path="res://objects/tobi/attack.gd" type="Script" id=12]
+[ext_resource path="res://objects/tobi/die.gd" type="Script" id=13]
+[ext_resource path="res://objects/tobi/camera.gd" type="Script" id=14]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 19.1194
@@ -106,7 +108,7 @@ tracks/0/keys = {
 script = ExtResource( 1 )
 
 [node name="sprite" type="Sprite" parent="."]
-position = Vector2( 0.0156555, -0.332169 )
+position = Vector2( 0.0156555, 3.95916 )
 scale = Vector2( 0.4, 0.4 )
 texture = ExtResource( 2 )
 offset = Vector2( 0, -100 )
@@ -114,8 +116,14 @@ vframes = 5
 hframes = 9
 frame = 28
 
+[node name="scarf" parent="sprite" instance=ExtResource( 3 )]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( -2.14981, -62.0775 )
+rotation = -0.234071
+scale = Vector2( 0.5, 0.5 )
+z_index = -1
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2( 0, -31.0677 )
 shape = SubResource( 1 )
 
@@ -126,44 +134,42 @@ color = Color( 0.290196, 0.0941176, 0.0941176, 1 )
 polygon = PoolVector2Array( -16.4451, -27.1173, 16.5894, -26.7767, 16.93, 28.0537, -16.7856, 28.0537 )
 
 [node name="state_machine" type="Node" parent="."]
-editor/display_folded = true
-script = ExtResource( 3 )
-
-[node name="idle" type="Node" parent="state_machine"]
 script = ExtResource( 4 )
 
-[node name="run" type="Node" parent="state_machine"]
+[node name="idle" type="Node" parent="state_machine"]
 script = ExtResource( 5 )
 
-[node name="jump" type="Node" parent="state_machine"]
+[node name="run" type="Node" parent="state_machine"]
 script = ExtResource( 6 )
 
-[node name="fall" type="Node" parent="state_machine"]
+[node name="jump" type="Node" parent="state_machine"]
 script = ExtResource( 7 )
 
-[node name="wall_jump" type="Node" parent="state_machine"]
+[node name="fall" type="Node" parent="state_machine"]
 script = ExtResource( 8 )
 
-[node name="duck" type="Node" parent="state_machine"]
+[node name="wall_jump" type="Node" parent="state_machine"]
 script = ExtResource( 9 )
 
-[node name="wall_slide" type="Node" parent="state_machine"]
+[node name="duck" type="Node" parent="state_machine"]
 script = ExtResource( 10 )
 
-[node name="attack" type="Node" parent="state_machine"]
+[node name="wall_slide" type="Node" parent="state_machine"]
 script = ExtResource( 11 )
 
-[node name="die" type="Node" parent="state_machine"]
+[node name="attack" type="Node" parent="state_machine"]
 script = ExtResource( 12 )
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="die" type="Node" parent="state_machine"]
+script = ExtResource( 13 )
+
+[node name="camera" type="Camera2D" parent="."]
 position = Vector2( 0, -200 )
 current = true
 limit_smoothed = true
 smoothing_enabled = true
 smoothing_speed = 10.0
-drag_margin_top = 1.0
-drag_margin_bottom = 0.03
+script = ExtResource( 14 )
 
 [node name="Label" type="Label" parent="."]
 margin_left = -17.4299
@@ -181,7 +187,6 @@ exclude_parent = false
 cast_to = Vector2( 0, 10 )
 
 [node name="left_rays" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="ray" type="RayCast2D" parent="left_rays"]
 position = Vector2( -17.4299, -29.2369 )

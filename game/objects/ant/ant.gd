@@ -56,4 +56,4 @@ func _on_ant_body_entered(body):
 	#player hit
 	if body.name == "player":
 		#print("i hit player")
-		body.velocity = Vector2(-400*dir,-400)
+		body.v = Vector2(-400*dir,-400)

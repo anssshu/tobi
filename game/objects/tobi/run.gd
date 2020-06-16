@@ -4,6 +4,7 @@ extends State
 
 func enter():
 	player.anim.play("run")
+	player.get_node("sprite/scarf/sprite").play("run")
 #when player is in run state
 func run():
 	#run state logic

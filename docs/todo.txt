@@ -1,0 +1,8 @@
+1-complete the dark forest map
+2-complete the castle map
+3-add ememies to all the levels
+4-create a boss and put boss fight
+5-add collectables to all the levels
+6-remove the double jump
+7-add music and sounds to the game 
+8- refine all the levels

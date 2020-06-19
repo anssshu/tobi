@@ -24,8 +24,8 @@ var life = 3
 var keys = 0
 var mute =  false
 var cleared_levels = 1 #0,1,2
-var check_point = Vector2(600,400)
-var current_level = 3
+var check_point = Vector2(100,400)
+var current_level = 4
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass

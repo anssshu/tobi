@@ -17,7 +17,16 @@ func _ready():
 		limit_right = 5350
 		limit_top = -500
 		limit_bottom = 2400
-
+	if globals.current_level == 4:
+		limit_left = 0
+		limit_right = 5692
+		limit_top = 0
+		limit_bottom = 2756
+	if globals.current_level == 5:
+		limit_left = -500
+		limit_right = 5350
+		limit_top = -500
+		limit_bottom = 2400
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
